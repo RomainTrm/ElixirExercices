@@ -15,7 +15,7 @@ defmodule MyList do
     end
 
     # Exercice 8
-    def applyTaxe(ship_to, net_amount) do
+     def applyTaxe(ship_to, net_amount) do
         tax_rates = [ NC: 0.075, TX: 0.08 ]
         if tax_rates[ship_to] == nil do
             net_amount
@@ -27,16 +27,15 @@ defmodule MyList do
     def applyTaxes(orders) do
         orders 
         |> Enum.map (fn order -> 
-            total_amount = applyTaxe(order.ship_to, order.net_amount)
-            Map.put order, :total_amount, total_amount
+            total_amount = applyTaxe(order[:ship_to], order[:net_amount])
+            order++[total_amount: total_amount]
             end)
     end
 
     def runApplyTaxes do
         applyTaxes [
-            %{id: 123, ship_to: :NC, net_amount: 100.00 },
-            %{id: 124, ship_to: :OK, net_amount: 100.00 },
-            %{id: 125, ship_to: :TX, net_amount: 100.00 }
+            [id: 123, ship_to: :NC, net_amount: 100.00 ],
+            [id: 124, ship_to: :OK, net_amount: 100.00 ],
+            [id: 125, ship_to: :TX, net_amount: 100.00 ]
         ]
-    end
 end
