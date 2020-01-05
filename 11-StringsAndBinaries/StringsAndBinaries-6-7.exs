@@ -1,5 +1,5 @@
 defmodule MyStrings do
-    
+
     # Exercice 6
     @delimiter ". "
     def capitalize_sentences(sentences) do
@@ -10,8 +10,6 @@ defmodule MyStrings do
     end
 
     # Exercice 7
-
-
     def runApplyTaxes do
         {:ok, file} = File.open("taxes-input.csv")
         _header = IO.read(file, :line)
@@ -20,7 +18,7 @@ defmodule MyStrings do
         |> IO.stream(:line)
         |> Stream.map(&String.trim&1)
         |> Stream.map(&String.split(&1, ","))
-        |> Enum.map(fn [id, ship_to, net_amount] -> 
+        |> Enum.map(fn [id, ship_to, net_amount] ->
             [
                 id: String.to_integer(id),
                 ship_to: ship_to |> String.replace(":", "") |> String.to_atom,
@@ -31,8 +29,8 @@ defmodule MyStrings do
     end
 
     defp _applyTaxes(orders) do
-        orders 
-        |> Enum.map(fn order -> 
+        orders
+        |> Enum.map(fn order ->
             total_amount = _applyTaxe(order[:ship_to], order[:net_amount])
             order++[total_amount: total_amount]
             end)
@@ -46,5 +44,5 @@ defmodule MyStrings do
             net_amount * (1.0 + tax_rates[ship_to])
         end
     end
-    
+
 end
