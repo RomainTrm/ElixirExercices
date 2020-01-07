@@ -20,7 +20,7 @@ defmodule CliTest do
 
   test "Sort issues by descending dates" do
     result = ["c", "a", "b"] |> fake_created_at_list |> sort_into_descending_order
-    result |> Enum.map(&Map.get(&1, "created_at")) == ["c", "b", "a"]
+    assert Enum.map(result, &Map.get(&1, "created_at")) == ["c", "b", "a"]
   end
 
   defp fake_created_at_list(values) do
